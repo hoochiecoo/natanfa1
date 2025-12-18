@@ -1,0 +1,35 @@
+name: Build Flutter APK with NDK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.0'
+
+      - name: Setup Android SDK & NDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 33
+          target: android-33
+          build-tools: '33.0.2'
+          ndk: r26d
+
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: /home/runner/work/my_flutter_app/my_flutter_app
+
+      - name: Build APK
+        run: flutter build apk --release
+        working-directory: /home/runner/work/my_flutter_app/my_flutter_app
+
+      - name: Show APK
+        run: ls -R /home/runner/work/my_flutter_app/my_flutter_app/build/app/outputs/flutter-apk
