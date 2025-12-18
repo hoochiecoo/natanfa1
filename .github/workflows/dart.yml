@@ -25,11 +25,9 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
-        working-directory: /home/runner/work/my_flutter_app/my_flutter_app
 
       - name: Build APK
         run: flutter build apk --release
-        working-directory: /home/runner/work/my_flutter_app/my_flutter_app
 
       - name: Show APK
-        run: ls -R /home/runner/work/my_flutter_app/my_flutter_app/build/app/outputs/flutter-apk
+        run: ls -R build/app/outputs/flutter-apk
